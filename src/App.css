@@ -1,0 +1,21 @@
+.app {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .main-content {
+    flex: 1;
+    background-color: #111827;
+    overflow-y: auto;
+  }
+  
+  @media (max-width: 768px) {
+    .app {
+      flex-direction: column;
+    }
+  
+    .main-content {
+      margin-top: 70px; /* Space for the sidebar */
+    }
+  }
+  

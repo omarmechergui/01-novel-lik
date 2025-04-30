@@ -1,0 +1,58 @@
+.downloads-page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .downloads-content {
+    padding: 20px;
+    flex: 1;
+    background-color: #111827;
+    overflow-y: auto;
+  }
+  
+  .download-item {
+    background-color: #1f2937;
+    color: #f9fafb;
+    padding: 14px 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s ease;
+  }
+  
+  .download-item.completed {
+    border-left: 4px solid #10b981;
+  }
+  
+  .download-item.failed {
+    border-left: 4px solid #ef4444;
+  }
+  
+  .download-item.downloading {
+    border-left: 4px solid #3b82f6;
+  }
+  
+  .chapter-title {
+    font-weight: 600;
+  }
+  
+  .download-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    text-transform: capitalize;
+  }
+  
+  .spin {
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
