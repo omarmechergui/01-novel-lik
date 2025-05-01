@@ -1,34 +1,30 @@
-// SearchResults.jsx
-import React, { useState, useEffect } from 'react';
-import './SearchResults.css';
+// src/pages/SearchResults/SearchResults.jsx
+import React, { useState } from 'react';
 import MangaCard from '../../components/MangaCard/MangaCard';
-import TopBar from '../../components/TopBar/TopBar';
 import mangaData from '../../data/data';  // استيراد البيانات من data.js
 
-const SearchResults = ({ searchQuery }) => {
-  const [mangas, setMangas] = useState([]);
-
-  useEffect(() => {
-    // هنا نفلتر البيانات بناءً على الـ searchQuery
-    const filteredMangas = mangaData.filter((manga) =>
-      manga.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setMangas(filteredMangas);
-  }, [searchQuery]);
+const SearchResults = () => {
+  const [query, setQuery] = useState('');
+  const filteredMangas = mangaData.filter((manga) =>
+    manga.title.toLowerCase().includes(query.toLowerCase())
+  );
 
   return (
-    <div className="search-results-page">
-      <TopBar title="Search Results" />
-
-      <div className="search-results-content">
-        {mangas.length > 0 ? (
-          <div className="manga-list">
-            {mangas.map((manga) => (
-              <MangaCard key={manga.id} manga={manga} />
-            ))}
-          </div>
+    <div className="search-results">
+      <input
+        type="text"
+        placeholder="Search for Manga"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        className="search-bar"
+      />
+      <div className="manga-cards-container">
+        {filteredMangas.length > 0 ? (
+          filteredMangas.map((manga) => (
+            <MangaCard key={manga.id} manga={manga} />
+          ))
         ) : (
-          <p className="no-results">No results found for "{searchQuery}"</p>
+          <p>No results found</p>
         )}
       </div>
     </div>

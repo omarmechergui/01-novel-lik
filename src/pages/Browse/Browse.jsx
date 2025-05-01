@@ -1,62 +1,57 @@
-// Browse.jsx
-import React, { useState } from 'react';
-import './Browse.css';
-import TopBar from '../../components/TopBar/TopBar';
-import MangaCard from '../../components/MangaCard/MangaCard';
-
-const dummyMangaList = [
-  {
-    title: 'Jujutsu Kaisen',
-    image: 'https://i.ibb.co/gvVffhk/jujutsu.jpg',
-    status: 'Reading',
-  },
-  {
-    title: 'Attack on Titan',
-    image: 'https://i.ibb.co/SKjThTt/aot.jpg',
-    status: 'Completed',
-  },
-  {
-    title: 'Chainsaw Man',
-    image: 'https://i.ibb.co/LNwRJTP/chainsaw.jpg',
-    status: 'Pending',
-  },
-  {
-    title: 'Naruto',
-    image: 'https://i.ibb.co/kGRDfJh/naruto.jpg',
-    status: 'Completed',
-  },
-];
+import React, { useState, useEffect } from "react";
+import MangaCard from "../../components/MangaCard/MangaCard";
+import { data } from "../../data/data";
+import "./Browse.css";
 
 const Browse = () => {
-  const [search, setSearch] = useState('');
+  const [mangas, setMangas] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedAuthor, setSelectedAuthor] = useState("All");
 
-  const filteredManga = dummyMangaList.filter(manga =>
-    manga.title.toLowerCase().includes(search.toLowerCase())
-  );
+  useEffect(() => {
+    setMangas(data);
+  }, []);
+
+  const filteredMangas = mangas.filter((manga) => {
+    const matchesTitle = manga.title.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesAuthor = selectedAuthor === "All" || manga.author === selectedAuthor;
+    return matchesTitle && matchesAuthor;
+  });
+
+  const uniqueAuthors = ["All", ...new Set(data.map((m) => m.author))];
 
   return (
     <div className="browse-page">
-      <TopBar title="Browse" />
+      <h1 className="page-title">Browse Mangas</h1>
 
-      <div className="browse-content">
+      <div className="browse-controls">
         <input
           type="text"
           placeholder="Search manga..."
-          className="search-input"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
 
-        <div className="manga-grid">
-          {filteredManga.map((manga, idx) => (
-            <MangaCard
-              key={idx}
-              title={manga.title}
-              image={manga.image}
-              status={manga.status}
-            />
+        <select
+          value={selectedAuthor}
+          onChange={(e) => setSelectedAuthor(e.target.value)}
+        >
+          {uniqueAuthors.map((author, index) => (
+            <option key={index} value={author}>
+              {author}
+            </option>
           ))}
-        </div>
+        </select>
+      </div>
+
+      <div className="manga-list">
+        {filteredMangas.length > 0 ? (
+          filteredMangas.map((manga) => (
+            <MangaCard key={manga.id} manga={manga} />
+          ))
+        ) : (
+          <p className="no-results">No mangas found</p>
+        )}
       </div>
     </div>
   );

@@ -1,48 +1,22 @@
-// Settings.jsx
+// src/pages/Settings/Settings.jsx
 import React, { useState } from 'react';
-import './Settings.css';
-import TopBar from '../../components/TopBar/TopBar';
 
 const Settings = () => {
-  const [darkMode, setDarkMode] = useState(true);
-  const [language, setLanguage] = useState('en');
+  const [darkMode, setDarkMode] = useState(false);
 
-  const handleToggleDarkMode = () => setDarkMode(!darkMode);
-  const handleChangeLanguage = (e) => setLanguage(e.target.value);
+  const toggleDarkMode = () => {
+    setDarkMode((prevMode) => !prevMode);
+    document.body.classList.toggle('dark-mode', !darkMode);
+  };
 
   return (
-    <div className={`settings-page ${darkMode ? 'dark' : 'light'}`}>
-      <TopBar title="Settings" />
-
-      <div className="settings-content">
-        <div className="setting-item">
-          <label htmlFor="dark-mode" className="setting-label">Dark Mode</label>
-          <input
-            id="dark-mode"
-            type="checkbox"
-            checked={darkMode}
-            onChange={handleToggleDarkMode}
-            className="setting-checkbox"
-          />
-        </div>
-
-        <div className="setting-item">
-          <label htmlFor="language" className="setting-label">Language</label>
-          <select
-            id="language"
-            value={language}
-            onChange={handleChangeLanguage}
-            className="setting-select"
-          >
-            <option value="en">English</option>
-            <option value="ar">Arabic</option>
-            <option value="jp">Japanese</option>
-          </select>
-        </div>
-
-        <div className="setting-item">
-          <button className="reset-btn">Reset Settings</button>
-        </div>
+    <div className="settings">
+      <h2>Settings</h2>
+      <div className="settings-option">
+        <label>
+          Dark Mode
+          <input type="checkbox" checked={darkMode} onChange={toggleDarkMode} />
+        </label>
       </div>
     </div>
   );

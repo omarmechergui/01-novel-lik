@@ -1,36 +1,42 @@
 .browse-page {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.browse-content {
   padding: 20px;
-  flex: 1;
-  background-color: #111827;
-  overflow-y: auto;
+  background-color: #121212;
+  min-height: 100vh;
+  color: #fff;
 }
 
-.search-input {
-  width: 100%;
-  max-width: 400px;
-  padding: 10px 14px;
-  border-radius: 8px;
-  border: none;
-  outline: none;
-  font-size: 1rem;
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
   margin-bottom: 20px;
-  background-color: #1f2937;
-  color: #f9fafb;
-  box-shadow: inset 0 0 4px #000;
 }
 
-.search-input::placeholder {
-  color: #9ca3af;
+.browse-controls {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
-.manga-grid {
+.browse-controls input,
+.browse-controls select {
+  padding: 10px;
+  font-size: 1rem;
+  background-color: #1e1e2f;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 6px;
+  outline: none;
+  width: 200px;
+}
+
+.manga-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 20px;
+}
+
+.no-results {
+  color: #999;
+  font-style: italic;
 }
